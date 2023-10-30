@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>Administración de Productos</title>
     <style>
@@ -82,7 +83,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Inventario</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col">Eliminar / Edit Stock</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,6 +116,7 @@
                     <td><?php echo $inventario; ?></td>
                     <td>
                         <button class="btn btn-danger" onclick="eliminarProducto('<?php echo $id; ?>')">🗑️</button>
+                        <button class="btn btn-primary" onclick="modificarInventario('<?php echo $id; ?>','<?php echo $nombre; ?>','<?php echo $inventario; ?>')">✏️</button>
                     </td>
                 </tr>
                 <?php 
@@ -157,6 +159,37 @@
         </div>
     </div>
 
+    <div class="modal" id="editProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Stock del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="editProducto.php" method="post">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Producto</label>
+                            <input type="text" name="productName" class="form-control" id="productName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newStock" class="form-label">Nuevo Stock</label>
+                            <input type="text" name="newStock" class="form-control" id="newStock" required>
+                        </div>
+                        <input type="hidden" name="productId" id="productId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <!-- Agrega este bloque de código JavaScript justo antes del cierre del cuerpo </body> -->
 <script>
     // Verifica si la variable de sesión existe
@@ -191,6 +224,18 @@
         }
     }
 </script>
+<script>
+        function modificarInventario(productId, productName, currentStock) {
+            // Rellena la ventana modal con el nombre del producto y el inventario actual
+            document.getElementById('productName').value = productName;
+            document.getElementById('newStock').value = currentStock;
+            // Almacena el ID del producto en un campo oculto
+            document.getElementById('productId').value = productId;
+            // Abre la ventana modal para editar el stock
+            $('#editProductModal').modal('show');
+        }
+</script>
+
 
 </body>
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>Administración de Usuarios</title>
     <style>
@@ -115,7 +116,7 @@
                     <td><?php echo $rol; ?></td>
                     <td>
                         <button class="btn btn-danger" onclick="eliminarUsuario('<?php echo $usuario; ?>')">🗑️</button>
-                        <button class="btn btn-primary modificar-usuario" onclick="modificarUsuario('<?php echo $usuario; ?>')">✏️</button>
+                        <button class="btn btn-primary modificar-usuario" onclick="modificarUsuario('<?php echo $nombre; ?>','<?php echo $email; ?>','<?php echo $usuario; ?>','<?php echo $password; ?>','<?php echo $rol; ?>')">✏️</button>
 
                     </td>
                 </tr>
@@ -168,6 +169,49 @@
         </div>
     </div>
 
+    <div class="modal" id="editUserModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">EDITAR USUARIO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="editUsuario.php" method="post">
+                        <div class="mb-3">
+                            <label for="editNombre" class="form-label">Nombre</label>
+                            <input type="text" name="editNombre" class="form-control" id="editNombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Correo electrónico</label>
+                            <input type="email" name="editEmail" class="form-control" id="editEmail" required>
+                            <div class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUsuario" class="form-label">Usuario</label>
+                            <input type="text" name="editUsuario" class="form-control" id="editUsuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPassword" class="form-label">Contraseña</label>
+                            <input type="password" name="editPassword" class="form-control" id="editPassword" required>
+                        </div>
+                        <label for="editRol" name="editRol" class="form-label">Rol</label>
+                        <select class="form-select" name="editRol" id="editRol" aria-label="Default select example" required>
+                            <option selected>Selecciona un rol</option>
+                            <option value="cliente">Cliente</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                        <input type="hidden" name="editUsuarioId" id="editUsuarioId" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -204,6 +248,24 @@
         }
     }
 </script>
+
+<script>
+    // ...
+
+    // Función para abrir el modal de edición de usuario
+    function modificarUsuario(nombre, email, usuario, password, rol) {
+        document.getElementById('editNombre').value = nombre;
+        document.getElementById('editEmail').value = email;
+        document.getElementById('editUsuario').value = usuario;
+        document.getElementById('editPassword').value = password;
+        document.getElementById('editRol').value = rol;
+        document.getElementById('editUsuarioId').value = usuario; // Puedes cambiar esto si usas un campo de ID único para identificar usuarios
+
+        // Abre el modal
+        $('#editUserModal').modal('show');
+    }
+</script>
+
 
 </body>
 </html>
