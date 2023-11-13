@@ -46,7 +46,7 @@
     ?>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="admin.php">Almacen ABC</a>
+            <a class="navbar-brand" href="admin.php">SwiftStream</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,10 +73,15 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nombre Cliente</th>
-                    <th scope="col">Email Cliente</th>
-                    <th scope="col">Total Cuenta</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Totalventas</th>
+
+                    <th scope="col">Eliminar Venta</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -97,18 +102,25 @@
 
                     for ($i = 0; $i < $long; $i++) {
                         $dec = $resp[$i];
-                        $id = $dec->id;
-                        $nombreCliente = $dec->nombreCliente;
-                        $emailCliente = $dec->emailCliente;
-                        $totalCuenta = $dec->totalCuenta;
-                        $fecha = $dec->fecha;
+                        $id = $dec->ID;
+                        $fecha = $dec->Fecha;
+                        $nombre = $dec->Nombre;
+                        $codigo = $dec->Codigo;
+                        $producto = $dec->Producto;
+                        $cantidad = $dec->Cantidad;
+                        $totalventas = $dec->Totalventas;
                 ?>
                 <tr>
                     <td><?php echo $id; ?></td>
-                    <td><?php echo $nombreCliente; ?></td>
-                    <td><?php echo $emailCliente; ?></td>
-                    <td><?php echo $totalCuenta; ?></td>
                     <td><?php echo $fecha; ?></td>
+                    <td><?php echo $nombre; ?></td>
+                    <td><?php echo $codigo; ?></td>
+                    <td><?php echo $producto; ?></td>
+                    <td><?php echo $cantidad; ?></td>
+                    <td><?php echo $totalventas; ?></td>
+                    <td>
+                        <button class="btn btn-danger" onclick="eliminarProducto('<?php echo $id; ?>')">🗑️</button>
+                    <td>
                 </tr>
                 <?php 
                     }
@@ -118,3 +130,27 @@
     </div>
 </body>
 </html>
+
+
+<script>
+    function eliminarProducto(ventaId) {
+        
+        if (confirm("¿Estás seguro de que deseas eliminar esta venta")) {
+            // Realiza una solicitud para eliminar al usuario
+            var url = 'eliminarventas.php?id=' + ventaId;
+            fetch(url)
+                .then(response => {
+                    console.log(response)
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud.');
+                    }
+                    location.reload();
+                    alert("✅🗑️ Se ha eliminado de manera exitosa la venta" ); 
+                    
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+</script>

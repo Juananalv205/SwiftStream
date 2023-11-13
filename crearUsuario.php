@@ -1,17 +1,15 @@
 <?php
     $nombre=$_POST["nombre"];
-    $email=$_POST["email"];
     $usuario=$_POST["usuario"];
     $pass=$_POST["password"];
     $rol=$_POST["rol"];
 
     // URL de la solicitud POST
-    $url = 'http://localhost:3001/usuarios';
+    $url = 'http://localhost:3001/usuarios/';
 
     // Datos que se enviarán en la solicitud POST
     $data = array(
         'nombre' => $nombre,
-        'email' => $email,
         'usuario' => $usuario,
         'password' => $pass,
         'rol' => $rol,

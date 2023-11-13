@@ -42,7 +42,7 @@ if (json_last_error() === JSON_ERROR_NONE) {
     // Redirigir según el rol del usuario
     if ($rol === "Vendedor") {
         header("Location: admin.php");
-    } elseif ($rol === "Cliente") {
+    } elseif ($rol === "Clientes") {
         header("Location: usuario.php");
     }
 

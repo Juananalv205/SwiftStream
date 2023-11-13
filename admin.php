@@ -53,14 +53,14 @@
     ?>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="admin.php">Almacen ABC</a>
+            <a class="navbar-brand" href="admin.php">SwiftStream</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="admin.php">Usuarios</a>
+                        <a class="nav-link active" aria-current="page" href="editarusuario.php">Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="admin-prod.php">Productos</a>
@@ -80,10 +80,9 @@
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Contraseña</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -103,20 +102,18 @@
                     $resp = json_decode($response);
 
                     foreach ($resp as $user) {
-                        $nombre = $user->nombre;
-                        $email = $user->email;
-                        $usuario = $user->usuario;
-                        $password = $user->password;        
-                        $rol = $user->rol;          ?>
+                        $nombre = $user->Nombre;
+                        $rol = $user->Rol;
+                        $usuario = $user->Usuario;
+                        $password = $user->Contraseña;?>
                 <tr>
                     <td><?php echo $nombre; ?></td>
-                    <td><?php echo $email; ?></td>
+                    <td><?php echo $rol; ?></td>
                     <td><?php echo $usuario; ?></td>
                     <td><?php echo $password; ?></td>
-                    <td><?php echo $rol; ?></td>
                     <td>
                         <button class="btn btn-danger" onclick="eliminarUsuario('<?php echo $usuario; ?>')">🗑️</button>
-                        <button class="btn btn-primary modificar-usuario" onclick="modificarUsuario('<?php echo $nombre; ?>','<?php echo $email; ?>','<?php echo $usuario; ?>','<?php echo $password; ?>','<?php echo $rol; ?>')">✏️</button>
+                        <button class="btn btn-primary modificar-usuario" onclick="modificarUsuario('<?php echo $nombre; ?>','<?php echo $rol; ?>','<?php echo $usuario; ?>','<?php echo $password; ?>')">✏️</button>
 
                     </td>
                 </tr>
@@ -141,11 +138,6 @@
                             <input type="text" name="nombre" class="form-control" id="nombre" required >
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" name="email" class="form-control" id="email" required>
-                            <div class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
-                        </div>
-                        <div class="mb-3">
                             <label for="usuario" class="form-label">Usuario</label>
                             <input type="text" name="usuario" class="form-control" id="usuario" required>
                         </div>
@@ -156,8 +148,8 @@
                         <label for="password"  name="password" class="form-label">Rol</label>
                         <select class="form-select"  name="rol" aria-label="Default select example" required>
                         <option selected>Selecciona un rol</option>
-                        <option value="cliente">cliente</option>
-                        <option value="vendedor">vendedor</option>
+                        <option value="Clientes">Clientes</option>
+                        <option value="Vendedor">Vendedor</option>
                         </select>
                 </div>
                 <div class="modal-footer">
@@ -183,11 +175,6 @@
                             <input type="text" name="editNombre" class="form-control" id="editNombre" required>
                         </div>
                         <div class="mb-3">
-                            <label for="editEmail" class="form-label">Correo electrónico</label>
-                            <input type="email" name="editEmail" class="form-control" id="editEmail" required>
-                            <div class="form-text">Nunca compartiremos su correo electrónico con nadie más.</div>
-                        </div>
-                        <div class="mb-3">
                             <label for="editUsuario" class="form-label">Usuario</label>
                             <input type="text" name="editUsuario" class="form-control" id="editUsuario" required>
                         </div>
@@ -198,8 +185,8 @@
                         <label for="editRol" name="editRol" class="form-label">Rol</label>
                         <select class="form-select" name="editRol" id="editRol" aria-label="Default select example" required>
                             <option selected>Selecciona un rol</option>
-                            <option value="cliente">Cliente</option>
-                            <option value="vendedor">Vendedor</option>
+                            <option value="Clientes">Clientes</option>
+                            <option value="Vendedor">Vendedor</option>
                         </select>
                         <input type="hidden" name="editUsuarioId" id="editUsuarioId" value="">
                     </div>
@@ -223,7 +210,7 @@
     if (mensajeExito !== "") {
         alert(mensajeExito); // Muestra una alerta simple, puedes personalizar esto
         <?php unset($_SESSION['mensaje_exito']); ?>;
-   }
+    }
 </script>
 
 <script>
@@ -253,12 +240,11 @@
     // ...
 
     // Función para abrir el modal de edición de usuario
-    function modificarUsuario(nombre, email, usuario, password, rol) {
+    function modificarUsuario(nombre, rol, usuario, password) {
         document.getElementById('editNombre').value = nombre;
-        document.getElementById('editEmail').value = email;
+        document.getElementById('editRol').value = rol;
         document.getElementById('editUsuario').value = usuario;
         document.getElementById('editPassword').value = password;
-        document.getElementById('editRol').value = rol;
         document.getElementById('editUsuarioId').value = usuario; // Puedes cambiar esto si usas un campo de ID único para identificar usuarios
 
         // Abre el modal

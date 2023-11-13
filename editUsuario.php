@@ -2,18 +2,17 @@
 // Recupera los datos del formulario de edición
 $usuario = $_POST["editUsuarioId"];
 $nuevoNombre = $_POST["editNombre"];
-$nuevoEmail = $_POST["editEmail"];
 $nuevoUsuario = $_POST["editUsuario"];
 $nuevaPassword = $_POST["editPassword"];
 $nuevoRol = $_POST["editRol"];
 
+
 // Prepara los datos para enviar al servidor
 $datosUsuario = json_encode(array(
-    "nombre" => $nuevoNombre,
-    "email" => $nuevoEmail,
-    "usuario" => $nuevoUsuario,
-    "password" => $nuevaPassword,
-    "rol" => $nuevoRol
+    "Nombre" => $nuevoNombre,
+    "Usuario" => $nuevoUsuario,
+    "Contraseña" => $nuevaPassword,
+    "Rol" => $nuevoRol
 ));
 
 // Configura la solicitud HTTP

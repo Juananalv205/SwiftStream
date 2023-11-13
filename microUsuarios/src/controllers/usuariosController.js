@@ -25,12 +25,11 @@ router.get('/usuarios/:usuario/:password', async (req, res) => {
 //crear un usuario 
 router.post('/usuarios', async (req, res) => {
     const nombre = req.body.nombre;
-    const email = req.body.email;
     const usuario = req.body.usuario;
     const password = req.body.password;
     const rol = req.body.rol; // Agregamos el campo "rol"
     
-    var result = await usuariosModel.crearUsuario(nombre, email, usuario, password, rol);
+    var result = await usuariosModel.crearUsuario(nombre, usuario, password, rol);
     res.send("Usuario creado");
 });
 // Ruta para eliminar un usuario por su nombre de usuario
@@ -39,6 +38,7 @@ router.delete('/usuarios/:usuario', async (req, res) => {
     const result = await usuariosModel.eliminarUsuario(usuario);
     res.send("Usuario eliminado");
 });
+
 // Ruta para modificar un usuario por su nombre de usuario
 router.put('/usuarios/:usuario', async (req, res) => {
     const usuario = req.params.usuario;
@@ -46,4 +46,5 @@ router.put('/usuarios/:usuario', async (req, res) => {
     const result = await usuariosModel.modificarUsuario(usuario, updatedUser);
     res.send("Usuario modificado");
 });
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const productosModel = require('../models/productosModel');
+
 //mostrar productos
 router.get('/productos', async (req, res) => {
     const id = req.params.id;
@@ -28,9 +29,11 @@ router.put('/productos/:id', async (req, res) => {
 });
 // Crear un producto 
 router.post('/productos', async (req, res) => {
+    const codigo = req.body.codigo;
     const nombre = req.body.nombre;
     const precio = req.body.precio;
-    const inventario = req.body.inventario;
+    const inventario = req.body.inventario
+
 
     // Validar que los campos requeridos no estén vacíos
     if (!nombre || !precio || inventario === undefined) {
@@ -38,7 +41,7 @@ router.post('/productos', async (req, res) => {
         return;
     }
 
-    var result = await productosModel.crearProducto(nombre, precio, inventario);
+    var result = await productosModel.crearProducto(codigo, nombre, precio, inventario);
     res.send("Producto creado");
 });
 // Eliminar un producto

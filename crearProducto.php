@@ -2,6 +2,7 @@
     $nombre=$_POST["nombre"];
     $precio=$_POST["precio"];
     $inventario=$_POST["inventario"];
+    $codigo=$_POST["codigo"];
     
     // URL de la solicitud POST
     $url = 'http://localhost:3002/productos';
@@ -10,7 +11,8 @@
     $data = array(
         'nombre' => $nombre,
         'precio' => $precio,
-        'inventario' => $inventario
+        'inventario' => $inventario,
+        'codigo'=> $codigo,
     );
     $json_data = json_encode($data);
 
@@ -41,6 +43,4 @@
 
     header("Location:admin-prod.php");
     exit;
-   
-
 ?>

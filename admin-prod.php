@@ -53,7 +53,7 @@
     ?>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="admin.php">Almacen ABC</a>
+            <a class="navbar-brand" href="admin.php">SwiftStream</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -80,6 +80,7 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Codigo</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Inventario</th>
@@ -104,19 +105,21 @@
 
                     for ($i = 0; $i < $long; $i++) {
                         $dec = $resp[$i];
-                        $id = $dec->id;
-                        $nombre = $dec->nombre;
-                        $precio = $dec->precio;
-                        $inventario = $dec->inventario;
+                        $id = $dec->ID;
+                        $codigo = $dec->Codigo;
+                        $nombre = $dec->Nombre;
+                        $precio = $dec->Precio;
+                        $inventario = $dec->Inventario;
                 ?>
                 <tr>
                     <td><?php echo $id; ?></td>
+                    <td><?php echo $codigo; ?></td>
                     <td><?php echo $nombre; ?></td>
                     <td><?php echo $precio; ?></td>
                     <td><?php echo $inventario; ?></td>
                     <td>
                         <button class="btn btn-danger" onclick="eliminarProducto('<?php echo $id; ?>')">🗑️</button>
-                        <button class="btn btn-primary" onclick="modificarInventario('<?php echo $id; ?>','<?php echo $nombre; ?>','<?php echo $inventario; ?>')">✏️</button>
+                        <button class="btn btn-primary" onclick="modificarInventario('<?php echo $id; ?>','<?php echo $codigo; ?>','<?php echo $nombre; ?>','<?php echo $inventario; ?>')">✏️</button>
                     </td>
                 </tr>
                 <?php 
@@ -137,6 +140,10 @@
                 </div>
                 <div class="modal-body">
                     <form action="crearProducto.php" method="post">
+                    <div class="mb-3">
+                            <label for="codigo" class="form-label">Codigo</label>
+                            <input type="text" name="codigo" class="form-control" id="codigo" required>
+                        </div>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" name="nombre" class="form-control" id="nombre" required>
@@ -169,12 +176,12 @@
                 <div class="modal-body">
                     <form action="editProducto.php" method="post">
                         <div class="mb-3">
-                            <label for="productName" class="form-label">Producto</label>
+                            <label for="productName" class="form-label">Codigo</label>
                             <input type="text" name="productName" class="form-control" id="productName" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="newStock" class="form-label">Nuevo Stock</label>
-                            <input type="text" name="newStock" class="form-control" id="newStock" required>
+                            <input type="text" name="newStock" class="form-control" id="newStock" required value="">
                         </div>
                         <input type="hidden" name="productId" id="productId">
                 </div>
@@ -188,8 +195,6 @@
     </div>
 
 
-
-
     <!-- Agrega este bloque de código JavaScript justo antes del cierre del cuerpo </body> -->
 <script>
     // Verifica si la variable de sesión existe
@@ -199,7 +204,7 @@
     if (mensajeExito !== "") {
         alert(mensajeExito); // Muestra una alerta simple, puedes personalizar esto
         <?php unset($_SESSION['mensaje_exito']); ?>;
-   }
+    }
 </script>
 
 <script>
@@ -215,7 +220,7 @@
                         throw new Error('Error en la solicitud.');
                     }
                     location.reload();
-                    alert("✅🗑️ Se ha eliminado de manera exitosa el usuario" ); 
+                    alert("✅🗑️ Se ha eliminado de manera exitosa el producto" ); 
                     
                 })
                 .catch(error => {
