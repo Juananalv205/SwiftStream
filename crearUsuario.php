@@ -5,7 +5,7 @@
     $rol=$_POST["rol"];
 
     // URL de la solicitud POST
-    $url = 'http://localhost:3001/usuarios/';
+    $url = 'http://192.168.101.2:3001/usuarios/';
 
     // Datos que se enviarán en la solicitud POST
     $data = array(

@@ -3,7 +3,7 @@ if (isset($_GET['usuario'])) {
     $usuarioAEliminar = $_GET['usuario'];
 
     // URL del servicio de eliminación de usuario
-    $servurl = "http://localhost:3001/usuarios/$usuarioAEliminar";
+    $servurl = "http://192.168.101.2:3001/usuarios/$usuarioAEliminar";
 
     // Inicializar cURL
     $curl = curl_init($servurl);

@@ -46,7 +46,7 @@ router.post('/ventas', async (req, res) => {
     }
 
     // SE conecta al microservicio de usuarios para estraer informacio
-    const responseUsuario = await axios.get(`http://localhost:3001/usuarios/${usuario}`);
+    const responseUsuario = await axios.get(`http://192.168.101.2:3001/usuarios/${usuario}`);
     const nombreCliente = responseUsuario.data.Nombre;
 
     const productosVendidos = [];
@@ -55,7 +55,7 @@ router.post('/ventas', async (req, res) => {
     // Se concecta al microservicio de productos
     for (const producto of items) {
         const cantidadproductos = producto.cantidad
-        const responseProducto = await axios.get(`http://localhost:3002/productos/${producto.id}`);
+        const responseProducto = await axios.get(`http://192.168.101.2:3002/productos/${producto.id}`);
         const nombreProducto = responseProducto.data.Nombre;
 
         const codigoproducto = responseProducto.data.Codigo;

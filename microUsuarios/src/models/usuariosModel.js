@@ -1,8 +1,11 @@
 const mysql = require('mysql2/promise');
+const express = require('express');
+const router = express.Router(); 
+const axios = require('axios');
 const connection = mysql.createPool({
-    host: 'localhost',
+    host: '192.168.101.2',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'proyectoredes'
 });
 //traer Usuarios

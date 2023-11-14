@@ -88,7 +88,7 @@
             </thead>
             <tbody>
                 <?php
-                    $servurl = "http://localhost:3001/usuarios";
+                    $servurl = "http://192.168.101.2:3001/usuarios";
                     $curl = curl_init($servurl);
                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                     $response = curl_exec($curl);

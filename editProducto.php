@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $data = json_encode(array("inventario" => $newStock));
 
         // URL de la API para actualizar el producto
-        $url = "http://localhost:3002/productos/" . $productId;
+        $url = "http://192.168.101.23002/productos/" . $productId;
 
         // Inicializar cURL para enviar la solicitud PUT
         $ch = curl_init($url);

@@ -5,7 +5,7 @@
     $codigo=$_POST["codigo"];
     
     // URL de la solicitud POST
-    $url = 'http://localhost:3002/productos';
+    $url = 'http://192.168.101.2:3002/productos';
 
     // Datos que se enviarán en la solicitud POST
     $data = array(

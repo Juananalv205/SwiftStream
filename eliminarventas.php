@@ -4,7 +4,7 @@ if (isset($_GET['id'])) {
     $productoId = $_GET['id'];
 
     // URL de la API que eliminará el producto específico
-    $apiUrl = "http://localhost:3003/ventas/" . $productoId;
+    $apiUrl = "http://192.168.101.2:3003/ventas/" . $productoId;
 
     // Inicializa cURL
     $ch = curl_init($apiUrl);

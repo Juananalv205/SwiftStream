@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router(); 
 const axios = require('axios');
 const connection = mysql.createPool({
-    host: 'localhost',
+    host: '192.168.101.2',
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'proyectoredes'
 });
 
@@ -48,7 +48,7 @@ async function borrarVenta(id) {
 async function calcularTotal(items) {
     let ventaTotal = 0;
     for (const producto of items) {
-        const response = await axios.get(`http://localhost:3002/productos/${producto.id}`);
+        const response = await axios.get(`http://192.168.101.2:3002/productos/${producto.id}`);
         ventaTotal += response.data.Precio * producto.cantidad;
     }
     return ventaTotal;
@@ -58,7 +58,7 @@ async function calcularTotal(items) {
 async function verificarDisponibilidad(items) {
     let disponibilidad = true;
     for (const producto of items) {
-        const response = await axios.get(`http://localhost:3002/productos/${producto.id}`);
+        const response = await axios.get(`http://192.168.101.2:3002/productos/${producto.id}`);
         if (response.data.Inventario < producto.cantidad) {
             disponibilidad = false;
             break;
@@ -70,10 +70,10 @@ async function verificarDisponibilidad(items) {
 // Función para disminuir la cantidad de unidades de los productos
 async function actualizarInventario(items) {
     for (const producto of items) {
-        const response = await axios.get(`http://localhost:3002/productos/${producto.id}`);
+        const response = await axios.get(`http://192.168.101.2:3002/productos/${producto.id}`);
         const inventarioActual = response.data.Inventario;
         const inv = inventarioActual - producto.cantidad;
-        await axios.put(`http://localhost:3002/productos/${producto.id}`, {
+        await axios.put(`http://192.168.101.2:3002/productos/${producto.id}`, {
             inventario: inv
         });
     }

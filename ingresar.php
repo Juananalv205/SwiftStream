@@ -8,7 +8,7 @@ $pass = $_POST["password"];
 
 echo " info" , $user, $pass;
 // Construir la URL para la solicitud al servicio web
-$servurl = "http://localhost:3001/usuarios/$user/$pass";
+$servurl = "http://192.168.101.2:3001/usuarios/$user/$pass";
 
 // Inicializar cURL
 $curl = curl_init($servurl);

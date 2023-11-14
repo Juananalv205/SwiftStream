@@ -16,7 +16,7 @@ $datosUsuario = json_encode(array(
 ));
 
 // Configura la solicitud HTTP
-$url = "http://localhost:3001/usuarios/" . $usuario;
+$url = "http://192.168.101.2:3001/usuarios/" . $usuario;
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $datosUsuario);

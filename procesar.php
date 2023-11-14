@@ -20,7 +20,7 @@ $json = json_encode($orden);
 //echo $json;
 
 
-$url = 'http://localhost:3003/ventas';
+$url = 'http://192.168.101.2:3003/ventas';
 
 // Inicializar cURL
 $ch = curl_init();
